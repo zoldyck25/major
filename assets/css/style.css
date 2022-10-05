@@ -3395,3 +3395,21 @@ ul {
   -o-transform: translateX(-50%) translateY(-50%) rotateX(0deg);
   transform: translateX(-50%) translateY(-50%) rotateX(0deg);
 }
+.signin{
+  border-bottom: 1px solid #d7e1dc;
+  margin-bottom: 50px;
+  padding-bottom: 24px;
+  position: relative;
+  text-align: center;
+}
+.signin::before{
+   background-color: lightcoral;
+    content: "";
+    height: 3px;
+    width: 50px;
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
+    bottom: -2px;
+}
