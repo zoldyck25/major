@@ -91,125 +91,120 @@
         <!-- Header Menu End -->
     </header>
     <!--Header Section End-->
-    <section class="container">
-        <br>
-        <div class="col-md-10 mx-auto col-lg-5 mb-3 mt-60">
-            <form class="p-4 p-md-5 border rounded-3 bg-light" method="post">
-                <div class=" mb-3 mt-10">
-                    <h4 class="signin">Register Now</h4>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">
-                        <label for="fname">First Name</label>
-                        <input type="text" class="form-control" placeholder="First name" aria-label="First name"
-                            id="fname" name="fname" required>
-                    </div>
-                    <div class="col">
-                        <label for="lname">Last Name</label>
-                        <input type="text" class="form-control" placeholder="Last name" aria-label="Last name"
-                            id="lname" name="lname" required>
-                    </div>
-                </div>
 
-                <div class="row mb-3">
-                    <div class="col">
-                        <label for="email">Email address</label>
-                        <input type="email" class="form-control" placeholder="name@example.com" id="email" name="email"
-                            required>
-                    </div>
-                    <div class="col">
-                        <label for="phone">Phone number</label>
-                        <input type="number" class="form-control" placeholder="77777666666" id="phone" name="phone"
-                            required>
-                    </div>
-                </div>
+    <br>
+    <br>
+    <br>
+    <hr>
 
-                <div class="row mb-3">
-                    <div class="col">
-                        <label for="dept">Department</label>
-                        <select class="form-select" aria-label="Default select example" id="dept" name="dept">
-                            <option value="0" name="dept">Select Department</option>
-                            <option value="ASH" name="dept">ASH</option>
-                            <option value="CS-A" name="dept">CS-A</option>
-                            <option value="CS-B" name="dept">CS-B</option>
-                            <option value="CS-C" name="dept">CS-C</option>
-                            <option value="CS-AIDS" name="dept">CS-AIDS</option>
-                            <option value="EC" name="dept">EC</option>
-                            <option value="EE" name="dept">EE</option>
-                            <option value="ME" name="dept">ME</option>
-                            <option value="CE" name="dept">CE</option>
-                            <option value="AUTOMATION_ROBOTICS" name="dept">AUTOMATION & ROBOTICS</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label for="enrol">Enrollment Number</label>
-                        <input type="text" class="form-control" placeholder="51110102966" id="enrol" required>
-                    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="dashboard.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-home" aria-hidden="true">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="view-attendance.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-bar-chart-2" aria-hidden="true">
+                                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                                </svg>
+                                View Attendance
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="leave-attendance-application.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
+                                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                    <polyline points="13 2 13 9 20 9"></polyline>
+                                </svg>
+                                Apply For Leave / Work Attendance
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-layers" aria-hidden="true">
+                                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                    <polyline points="2 17 12 22 22 17"></polyline>
+                                    <polyline points="2 12 12 17 22 12"></polyline>
+                                </svg>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
                 </div>
+                <br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br>
+            </nav>
 
-                <div class="row mb-3">
-                    <div class="col">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" placeholder="Password" id="password" required>
-                    </div>
-                    <div class="col">
-                        <label for="cpassword">Confirm Password</label>
-                        <input type="password" class="form-control" placeholder="Confirm Password" id="cpassword"
-                            required>
-                    </div>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Apply for Leave / Work Attendance</h1>
                 </div>
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" required> Accept terms and condition
-                    </label>
-                </div>
-                <button class="w-100 btn btn-lg btn-warning" type="submit">Register Now</button>
-                <hr class="my-4">
-                <div class="text-center">
-                    <h6>Already have an account? <a href="login.html" class="link-danger">Login</a></h6>
-                </div>
-            </form>
-        </div>
-
-    </section>
-
-    <!-- Footer Start -->
-    <footer id="rs-footer" class="rs-footer rs-footer-light">
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-12 mb-md-30">
-                        <div class="footer-widget">
-                            <div class="footer-logo">
-                                <a href="#"><img src="assets/images/dark-logo.svg" alt="Footer Logo"
-                                        style="width: 30%; margin-right: 30px;"></a>
-                            </div>
-                            <div class="copyright hidden-md">
-                                <p>© Copyrights 2022 <a href="#">Attendive</a></p>
-                            </div>
+                <form class="p-4 p-md-5 border rounded-3" method="post">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="application_type">Applying For</label>
+                            <br>
+                            <select class="form-select" aria-label="Default select example" id="application_type"
+                                name="application_type" style="width: 100%;">
+                                <option value="0" name="application_type">Application Type</option>
+                                <option value="LEAVE" name="application_type">LEAVE</option>
+                                <option value="WORK ATTENDANCE" name="application_type">WORK ATTENDANCE</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="apply_date">Apply Date</label>
+                            <input type="date" class="form-control" value="" aria-label="First name" id="apply_date"
+                                name="apply_date" required readonly>
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-12 mb-md-30" id="contact">
-                        <div class="footer-widget">
-                            <h4 class="footer-title">Contact Us</h4>
-                            <ul class="address-widget">
-                                <li>House No. 172, Scheme No. 78, <br> Vijay Nagar, Indore - 452010
-                                </li>
-                                <li><a href="tel:7264800601">(+91) 7264800601</a>, <a href="tel:9422947462">(+91)
-                                        9422947462</a>
-                                </li>
-                                <li><a href="mailto:tejas@tejearning.com">tejas@tejearning.com,</a></li>
-                                <li><a href="https://tejearning.com/">www.tejearning.com</a></li>
-                            </ul>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="leavefrom">Leave From</label>
+                            <input type="date" class="form-control" id="leavefrom" required>
+                        </div>
+                        <div class="col">
+                            <label for="leavetill">Leave Till</label>
+                            <input type="date" class="form-control" id="leavetill" required>
                         </div>
                     </div>
-                </div>
-            </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="reason">Reason</label>
+                            <br>
+                            <textarea name="reason" id="reason" style="width: 100%" required></textarea>
+                        </div>
+                    </div>
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" required> Above information is correct
+                        </label>
+                    </div>
+                    <button class="w-100 btn btn-lg btn-warning" type="submit">Apply</button>
+                </form>
+            </main>
         </div>
-    </footer>
-    <!-- Footer End -->
-
+    </div>
 
     <!-- jquery latest version -->
     <script src="assets/js/jquery.min.js"></script>
@@ -252,6 +247,20 @@
     <script src="assets/js/contact.form.js"></script>
     <!-- main js -->
     <script src="assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).ready(function () {
+            current_date = new Date();
+            const current_day = ("0" + current_date.getDate()).slice(-2);
+            const current_month = ("0" + current_date.getMonth() + 1).slice(-2);
+            const current_year = current_date.getFullYear();
+            const today = current_year + "-" + current_month + "-" + current_day
+            $("#apply_date").val(today);
+        });
+    </script>
 
 </body>
 
