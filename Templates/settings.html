@@ -126,7 +126,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="leave-attendance-application.html">
+                            <a class="nav-link" href="leave-attendance-application.html">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
@@ -148,7 +148,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="settings.html">
+                            <a class="nav-link active" href="settings.html">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-layers" aria-hidden="true">
@@ -168,60 +168,34 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Apply for Leave / Work Attendance</h1>
+                    <h1 class="h2">Settings</h1>
                 </div>
-                <form class="p-4 p-md-5 border rounded-3" method="post">
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="application_type">Applying For</label>
-                            <br>
-                            <select class="form-select" aria-label="Default select example" id="application_type"
-                                name="application_type" style="width: 100%;">
-                                <option value="0" name="application_type">Application Type</option>
-                                <option value="LEAVE" name="application_type">LEAVE</option>
-                                <option value="WORK ATTENDANCE" name="application_type">WORK ATTENDANCE</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <label for="apply_date">Apply Date</label>
-                            <input type="date" class="form-control" value="" aria-label="First name" id="apply_date"
-                                name="apply_date" required readonly>
-                        </div>
+                <div style="width: 100%;">
+                    <div style="width: 50%;">
+                        <h2>Change Password</h2>
+                        <form class="p-4 p-md-5 border rounded-3" method="post">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="current_password">Current Password</label>
+                                    <input type="password" class="form-control" id="current_password" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="cpassword">Confirm Password</label>
+                                    <input type="password" class="form-control" id="cpassword" required>
+                                </div>
+                            </div>
+                            <button class="w-100 btn btn-lg btn-warning" type="submit">Change Password</button>
+                        </form>
                     </div>
-
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="leavefrom">Leave From</label>
-                            <input type="date" class="form-control" id="leavefrom" name="leavefrom" required>
-                        </div>
-                        <div class="col">
-                            <label for="leavetill">Leave Till</label>
-                            <input type="date" class="form-control" id="leavetill" name="leavetill" required>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="reason">Reason</label>
-                            <br>
-                            <textarea name="reason" id="reason" style="width: 100%" required></textarea>
-                        </div>
-                        <div class="col">
-                            <label for="proof">Proof</label>
-                            <br>
-                            <input type="file" name="proof" id="proof">
-                        </div>
-                    </div>
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" name="checkbox" required> Above information is correct
-                        </label>
-                    </div>
-                    <button class="w-100 btn btn-lg btn-warning" type="submit">Apply</button>
-                    <hr class="my-4">
-                    <div class="text-center">
-                        <h6>Already applied? <a href="leave-attendance.html">Applications</a></h6>
-                    </div>
-                </form>
+                </div>
             </main>
         </div>
     </div>
