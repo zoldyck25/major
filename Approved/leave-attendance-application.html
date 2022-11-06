@@ -198,6 +198,10 @@
                             <label for="leavetill">Leave Till</label>
                             <input type="date" class="form-control" id="leavetill" name="leavetill" required>
                         </div>
+                        <div class="col">
+                            <label for="num_days">Total Days</label>
+                            <input type="number" class="form-control" id="num_days" name="num_days" readonly required>
+                        </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
@@ -279,6 +283,52 @@
             const current_year = current_date.getFullYear();
             const today = current_year + "-" + current_month + "-" + current_day
             $("#apply_date").val(today);
+        });
+    </script>
+    <script>
+        function calcBusinessDays(dDate1, dDate2) { // input given as Date objects
+            var iWeeks, iDateDiff, iAdjust = 0;
+            if (dDate2 < dDate1) return -1; // error code if dates transposed
+            var iWeekday1 = dDate1.getDay(); // day of week
+            var iWeekday2 = dDate2.getDay();
+            iWeekday1 = (iWeekday1 == 0) ? 7 : iWeekday1; // change Sunday from 0 to 7
+            iWeekday2 = (iWeekday2 == 0) ? 7 : iWeekday2;
+            if ((iWeekday1 > 5) && (iWeekday2 > 5)) iAdjust = 1; // adjustment if both days on weekend
+            iWeekday1 = (iWeekday1 > 5) ? 5 : iWeekday1; // only count weekdays
+            iWeekday2 = (iWeekday2 > 5) ? 5 : iWeekday2;
+
+            // calculate differnece in weeks (1000mS * 60sec * 60min * 24hrs * 7 days = 604800000)
+            iWeeks = Math.floor((dDate2.getTime() - dDate1.getTime()) / 604800000)
+
+            if (iWeekday1 < iWeekday2) { //Equal to makes it reduce 5 days
+                iDateDiff = (iWeeks * 5) + (iWeekday2 - iWeekday1);
+            } else {
+                iDateDiff = ((iWeeks + 1) * 5) - (iWeekday1 - iWeekday2)
+            }
+
+            iDateDiff -= iAdjust // take into account both days on weekend
+            if (dDate2.toString() === dDate1.toString()) return 1;
+
+            return (iDateDiff + 1); // add 1 because dates are inclusive
+        }
+        $("#leavetill").change(function () {
+            const leavefrom = document.getElementById('leavefrom').value;
+            const leavetill = document.getElementById('leavetill').value;
+            let num_days = document.getElementById('num_days');
+            const from = new Date(leavefrom);
+            const to = new Date(leavetill);
+            num_days.value = calcBusinessDays(from, to);
+            let application_type = document.getElementById('application_type').value;
+            if (application_type === '0') {
+                alert('Select proper application type.');
+                leavetill.innerHTML = '';
+            }
+        });
+        $("#application_type").change(function () {
+            let application_type = document.getElementById('application_type').value;
+            if (application_type === '0') {
+                alert(0);
+            }
         });
     </script>
 
