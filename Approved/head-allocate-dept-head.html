@@ -115,7 +115,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="hod-allocate-faculty.html">
+                            <a class="nav-link active" aria-current="page" href="hod-allocate-faculty.html">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-home" aria-hidden="true">
@@ -137,7 +137,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="hod-faculties-list.html">
+                            <a class="nav-link" href="hod-faculties-list.html">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
@@ -168,34 +168,46 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Faculties</h1>
+                    <h1 class="h2">Allocate HOD</h1>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Faculty Name</th>
-                                <th scope="col">Email address</th>
-                                <th scope="col">Phone Number</th>
-                                <th scope="col">Semester</th>
-                                <th scope="col">Section</th>
-                                <th scope="col">Subjects</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Prof. Ankit Chopra</td>
-                                <td>ankitchopra@piemr.edu.in</td>
-                                <td>5666555685</td>
-                                <td>7</td>
-                                <td>CS-B</td>
-                                <td>Software Architecture</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <form class="p-4 p-md-5 border rounded-3" method="post">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="faculty_name">Faculty Name</label>
+                            <br>
+                            <select class="form-select" aria-label="Default select example" id="faculty_name"
+                                name="faculty_name" style="width: 100%;">
+                                <option value="0" name="faculty_name">Faculty Name</option>
+                                <option value="Prof. Ankit Chopra" name="faculty_name">Prof. Ankit Chopra</option>
+                                <option value="Prof. Arpit Maheshwari" name="faculty_name">Prof. Arpit Maheshwari
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="dept">Department</label>
+                            <br>
+                            <select class="form-select" aria-label="Default select example" id="dept" name="dept"
+                                style="width: 100%;" required>
+                                <option value="0" name="dept">Select Department</option>
+                                <option value="ASH" name="dept">ASH</option>
+                                <option value="CS-A" name="dept">CS-A</option>
+                                <option value="CS-B" name="dept">CS-B</option>
+                                <option value="CS-C" name="dept">CS-C</option>
+                                <option value="CS-AIDS" name="dept">CS-AIDS</option>
+                                <option value="EC" name="dept">EC</option>
+                                <option value="EE" name="dept">EE</option>
+                                <option value="ME" name="dept">ME</option>
+                                <option value="CE" name="dept">CE</option>
+                                <option value="AUTOMATION_ROBOTICS" name="dept">AUTOMATION & ROBOTICS</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="w-100 btn btn-lg btn-warning" type="submit">Allocate</button>
+                    <hr class="my-4">
+                    <div class="text-center">
+                        <h6>HOD List <a href="head-hod-list.html">HOD's</a></h6>
+                    </div>
+                </form>
 
             </main>
         </div>
