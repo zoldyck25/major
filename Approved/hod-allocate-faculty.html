@@ -103,18 +103,7 @@
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="dashboard.html">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-home" aria-hidden="true">
-                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                </svg>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="view-attendance.html">
+                            <a class="nav-link" href="#">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-bar-chart-2" aria-hidden="true">
@@ -122,29 +111,40 @@
                                     <line x1="12" y1="20" x2="12" y2="4"></line>
                                     <line x1="6" y1="20" x2="6" y2="14"></line>
                                 </svg>
-                                View Attendance
+                                Approve / Reject Leave / Attendance
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="leave-attendance-application.html">
+                            <a class="nav-link active" aria-current="page" href="hod-allocate-faculty.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-home" aria-hidden="true">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                                Allocate Faculty
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
                                     <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
                                     <polyline points="13 2 13 9 20 9"></polyline>
                                 </svg>
-                                Apply For Leave / Work Attendance
+                                View Students
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="leave-attendance.html">
+                            <a class="nav-link" href="hod-faculties-list.html">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
                                     <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
                                     <polyline points="13 2 13 9 20 9"></polyline>
                                 </svg>
-                                View Leave Applications
+                                Faculties
                             </a>
                         </li>
                         <li class="nav-item">
@@ -168,9 +168,70 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Dashboard</h1>
+                    <h1 class="h2">Allocate Faculty</h1>
                 </div>
-                <h2>Academic Details</h2>
+                <form class="p-4 p-md-5 border rounded-3" method="post">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="faculty_name">Faculty Name</label>
+                            <br>
+                            <select class="form-select" aria-label="Default select example" id="faculty_name"
+                                name="faculty_name" style="width: 100%;">
+                                <option value="0" name="faculty_name">Faculty Name</option>
+                                <option value="Prof. Ankit Chopra" name="faculty_name">Prof. Ankit Chopra</option>
+                                <option value="Prof. Arpit Maheshwari" name="faculty_name">Prof. Arpit Maheshwari
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="semester">Semester</label>
+                            <br>
+                            <select class="form-select" aria-label="Default select example" id="semester"
+                                name="semester" style="width: 100%;" required>
+                                <option value="0" name="semester">Semester</option>
+                                <option value="1" name="semester">1</option>
+                                <option value="2" name="semester">2</option>
+                                <option value="3" name="semester">3</option>
+                                <option value="4" name="semester">4</option>
+                                <option value="5" name="semester">5</option>
+                                <option value="6" name="semester">6</option>
+                                <option value="7" name="semester">7</option>
+                                <option value="8" name="semester">8</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="section">Section</label>
+                            <br>
+                            <select class="form-select" aria-label="Default select example" id="section" name="section"
+                                style="width: 100%;" required>
+                                <option value="0" name="section">Section</option>
+                                <option value="CS-A" name="section">CS-A</option>
+                                <option value="CS-B" name="section">CS-B</option>
+                                <option value="CS-C" name="section">CS-C</option>
+                                <option value="CS-AIDS" name="section">CS-AIDS</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="subject">Subject</label>
+                            <select class="form-select" aria-label="Default select example" id="subject" name="subject"
+                                style="width: 100%;" required>
+                                <option value="0" name="subject">Subject</option>
+                                <option value="Data Structure" name="subject">Data Structure</option>
+                                <option value="Object Oriented Programming" name="subject">Object Oriented Programming
+                                </option>
+                                <option value="Python" name="subject">Python</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="w-100 btn btn-lg btn-warning" type="submit">Allocate</button>
+                    <hr class="my-4">
+                    <div class="text-center">
+                        <h6>Faculty List <a href="hod-faculties-list.html">Faculties</a></h6>
+                    </div>
+                </form>
 
             </main>
         </div>
