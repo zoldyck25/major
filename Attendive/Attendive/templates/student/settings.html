@@ -1,0 +1,161 @@
+{% extends 'main/base.html' %}
+{% block title %}Settings{% endblock %}
+{% block content%}
+
+<br>
+<br>
+<br>
+<hr>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('student.attendance') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-bar-chart-2" aria-hidden="true">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                            View Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('student.apply_leave') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            Apply For Leave / Work Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('student.application') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            View Leave Applications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('student.settings') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-layers" aria-hidden="true">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                <polyline points="2 17 12 22 22 17"></polyline>
+                                <polyline points="2 12 12 17 22 12"></polyline>
+                            </svg>
+                            Settings
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br>
+        </nav>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Settings</h1>
+            </div>
+            <div style="width: 100%;">
+                <div style="width: 50%;">
+                    <h2>Change Password</h2>
+                    <form class="p-4 p-md-5 border rounded-3" method="post">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="current_password">Current Password</label>
+                                <input type="password" class="form-control" id="current_password" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="cpassword">Confirm Password</label>
+                                <input type="password" class="form-control" id="cpassword" required>
+                            </div>
+                        </div>
+                        <button class="w-100 btn btn-lg btn-warning" type="submit">Change Password</button>
+                    </form>
+                </div>
+            </div>
+            {% if not current_user.files_uploaded %}
+            <div style="width: 100%;">
+                <div style="width: 50%;">
+                    <h2>Register Face</h2>
+                    <form class="p-4 p-md-5 border rounded-3 bg-light" method="post">
+                        <div class=" mb-3 mt-10">
+                            <h4 class="signin">Register Face</h4>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="frontface">Front Face</label>
+                                <input type="file" class="form-control" id="frontface" name="frontface" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="leftface">Left Face</label>
+                                <input type="file" class="form-control" id="leftface" name="leftface" required>
+                            </div>
+                            <div class="col">
+                                <label for="rightface">Right Face</label>
+                                <input type="file" class="form-control" id="rightface" name="rightface" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="leftfrontface">Left Front Face</label>
+                                <input type="file" class="form-control" id="leftfrontface" name="leftfrontface"
+                                    required>
+                            </div>
+                            <div class="col">
+                                <label for="rightfrontface">Right Front Face</label>
+                                <input type="file" class="form-control" id="rightfrontface" name="rightfrontface"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" required> Accept terms and condition
+                            </label>
+                        </div>
+                        <button class="w-100 btn btn-lg btn-warning" type="submit">Register Face</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+        </main>
+    </div>
+</div>
+
+{% block script %}
+<script>
+    $(document).ready(function () {
+        current_date = new Date();
+        const current_day = ("0" + current_date.getDate()).slice(-2);
+        const current_month = ("0" + current_date.getMonth() + 1).slice(-2);
+        const current_year = current_date.getFullYear();
+        const today = current_year + "-" + current_month + "-" + current_day
+        $("#apply_date").val(today);
+    });
+</script>
+{% endblock %}
+
+{% endblock %}

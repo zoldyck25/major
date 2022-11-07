@@ -5,7 +5,8 @@
 <section class="container">
     <br>
     <div class="col-md-10 mx-auto col-lg-5 mb-3 mt-60">
-        <form class="p-4 p-md-5 border rounded-3 bg-light" method="post" id="register_form">
+        <form class="p-4 p-md-5 border rounded-3 bg-light" action="{{ url_for('student.register') }}" method="post"
+            id="register_form">
             <div class=" mb-3 mt-10">
                 <h4 class="signin">Register Now</h4>
             </div>
@@ -30,7 +31,8 @@
                 </div>
                 <div class="col">
                     <label for="phone">Phone number</label>
-                    <input type="number" class="form-control" placeholder="7777766666" id="phone" name="phone" required>
+                    <input type="number" class="form-control" placeholder="7777766666" id="phone" name="mobile_number"
+                        required>
                 </div>
             </div>
 
@@ -49,29 +51,31 @@
                 </div>
                 <div class="col">
                     <label for="enrol">Enrollment Number</label>
-                    <input type="text" class="form-control" placeholder="0863CS191091" id="enrol" required>
+                    <input type="text" class="form-control" placeholder="0863CS191091" name="enrol" id="enrol" required>
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" placeholder="Password" id="password" required>
+                    <input type="password" class="form-control" placeholder="Password" name="password" id="password"
+                        required>
                 </div>
                 <div class="col">
                     <label for="cpassword">Confirm Password</label>
-                    <input type="password" class="form-control" placeholder="Confirm Password" id="cpassword" required>
+                    <input type="password" class="form-control" placeholder="Confirm Password" name="cpassword"
+                        id="cpassword" required>
                 </div>
             </div>
             <div class="checkbox mb-3">
                 <label>
-                    <input type="checkbox" required> Accept terms and condition
+                    <input type="checkbox" name="terms" required> Accept terms and condition
                 </label>
             </div>
             <button class="w-100 btn btn-lg btn-warning" type="submit">Register Now</button>
             <hr class="my-4">
             <div class="text-center">
-                <h6>Already have an account? <a href="{{ url_for('main.login') }}" class="link-danger">Login</a></h6>
+                <h6>Already have an account? <a href="{{ url_for('student.login') }}" class="link-danger">Login</a></h6>
             </div>
         </form>
     </div>
