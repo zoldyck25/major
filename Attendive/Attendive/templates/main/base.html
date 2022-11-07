@@ -75,13 +75,22 @@
                                         <li><a class="active" href="/">Home</a></li>
                                         <!-- End Home -->
                                         <li> <a href="/#contact">Contact</a> </li>
+                                        {% if current_user.is_authenticated %}
+                                        <li> <a href="{{ url_for('student.logout') }}">Logout</a> </li>
+                                        {% endif %}
                                     </ul>
                                 </nav>
                             </div>
                             <div class="right-bar-button text-right">
                                 <ul>
-                                    <li><a class="readon box-shadow" href="{{ url_for('main.login') }}">Login Now</a>
+                                    {% if current_user.is_authenticated %}
+                                    <li><a class="readon box-shadow"
+                                            href="{{ url_for('student.attendance') }}">Attendance</a>
                                     </li>
+                                    {% else %}
+                                    <li><a class="readon box-shadow" href="{{ url_for('student.login') }}">Login Now</a>
+                                    </li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
