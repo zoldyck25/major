@@ -1,0 +1,94 @@
+{% extends 'main/base.html' %}
+{% block title %}Register{% endblock %}
+{% block content%}
+<!--Header Section End-->
+<section class="container">
+    <br>
+    <div class="col-md-10 mx-auto col-lg-5 mb-3 mt-60">
+        <form class="p-4 p-md-5 border rounded-3 bg-light" method="post" id="register_form">
+            <div class=" mb-3 mt-10">
+                <h4 class="signin">Register Now</h4>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="fname">First Name</label>
+                    <input type="text" class="form-control" placeholder="First name" aria-label="First name" id="fname"
+                        name="fname" required>
+                </div>
+                <div class="col">
+                    <label for="lname">Last Name</label>
+                    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" id="lname"
+                        name="lname" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" placeholder="name@example.com" id="email" name="email"
+                        required>
+                </div>
+                <div class="col">
+                    <label for="phone">Phone number</label>
+                    <input type="number" class="form-control" placeholder="7777766666" id="phone" name="phone" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="section">Section</label>
+                    <br>
+                    <select class="form-select" aria-label="Default select example" id="section" name="section"
+                        required>
+                        <option value="0" name="section">Select Section</option>
+                        <option value="CS-A" name="section">CS-A</option>
+                        <option value="CS-B" name="section">CS-B</option>
+                        <option value="CS-C" name="section">CS-C</option>
+                        <option value="CS-AIDS" name="section">CS-AIDS</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="enrol">Enrollment Number</label>
+                    <input type="text" class="form-control" placeholder="0863CS191091" id="enrol" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" placeholder="Password" id="password" required>
+                </div>
+                <div class="col">
+                    <label for="cpassword">Confirm Password</label>
+                    <input type="password" class="form-control" placeholder="Confirm Password" id="cpassword" required>
+                </div>
+            </div>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" required> Accept terms and condition
+                </label>
+            </div>
+            <button class="w-100 btn btn-lg btn-warning" type="submit">Register Now</button>
+            <hr class="my-4">
+            <div class="text-center">
+                <h6>Already have an account? <a href="{{ url_for('main.login') }}" class="link-danger">Login</a></h6>
+            </div>
+        </form>
+    </div>
+
+</section>
+
+{% block scripts %}
+<script>
+    $("#register_form").submit(function (event) {
+        console.log('Done');
+        const section = document.getElementById('section').value;
+        if (section === '0') {
+            event.preventDefault();
+            alert('Please select proper section.');
+        }
+    });
+</script>
+{% endblock %}
+
+{% endblock %}

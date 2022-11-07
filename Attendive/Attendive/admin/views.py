@@ -1,3 +1,3 @@
 from flask import Blueprint, render_template
 
-faculty = Blueprint('faculty', __name__)
+admin = Blueprint('admin', __name__)
