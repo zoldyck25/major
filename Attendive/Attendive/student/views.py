@@ -2,10 +2,11 @@ from flask import Blueprint, redirect, url_for, flash, request, render_template,
 from itsdangerous import URLSafeTimedSerializer as URLSerializer
 from itsdangerous import SignatureExpired, BadTimeSignature
 from flask_login import *
-from datetime import timedelta
+from datetime import timedelta, date
 from Attendive import db, bcrypt
-from Attendive.student.utils import send_confirm_email, send_reset_email
+from Attendive.student.utils import *
 from Attendive.models import *
+import os
 
 student = Blueprint('student', __name__)
 
@@ -44,12 +45,13 @@ def register():
         cpassword = request.form.get('cpassword')
         section = request.form.get('section')
         enrol = request.form.get('enrol')
+        semester = request.form.get('semester')
         terms = request.form.get('terms')
         if terms == 'on':
             if not User.query.filter_by(email=email).first() and not User.query.filter_by(mobile_number=mobile_number).first() or not User.query.filter_by(enrollment=enrol).first():
                 if password == cpassword:
                     s = URLSerializer(current_app.config['SECRET_KEY'])
-                    token = s.dumps({"email": email, "fname": fname, "lname": lname, "mobile_number": mobile_number, "password": password, "section": section, "enrol": enrol}, salt="send-email-confirmation")
+                    token = s.dumps({"email": email, "fname": fname, "lname": lname, "mobile_number": mobile_number, "password": password, "section": section, "enrol": enrol, "semester": semester}, salt="send-email-confirmation")
                     send_confirm_email(email=email, token=token)
                     flash(f"An confirmation email has been sent to you on {email}!", "success")
                     return redirect(url_for('student.login'))
@@ -80,8 +82,10 @@ def confirm_email(token):
             return redirect(url_for('student.login'))
         user = User(fname=data["fname"], email=data["email"], lname=data["lname"], mobile_number=data["mobile_number"],
                     password=bcrypt.generate_password_hash(data["password"]).decode('utf-8'), enrollment=data["enrol"], 
-                    section=data["section"], date=datetime.now(tz))
+                    section=data["section"], semester=data["semester"], date=datetime.now(tz))
         db.session.add(user)
+        role = Role.query.filter_by(name='student').first()
+        user.roles.append(role)
         db.session.commit()
         login_user(user, remember=True, duration=timedelta(hours=1))
         flash("Your account has been created successfully!", "success")
@@ -94,7 +98,7 @@ def confirm_email(token):
 @student.route('/forgot_password/', methods=['GET', 'POST'])
 def forgot_password():
     if current_user.is_authenticated:
-        return redirect(url_for('student.settings'))
+        return redirect(url_for('student.attendance'))
     if request.method == "POST":
         email = request.form.get('email')
         user = User.query.filter_by(email=email).first()
@@ -105,8 +109,6 @@ def forgot_password():
 
 @student.route('/reset_password/<token>/', methods=['GET', 'POST'])
 def reset_token(token):
-    if current_user.is_authenticated:
-        return redirect(url_for('student.home'))
     user = User.verify_reset_token(token)
     if user is None:
         flash("That is an invalid or expired token", "danger")
@@ -128,37 +130,105 @@ def reset_token(token):
 @student.route('/attendance/', methods=['GET', 'POST'])
 @login_required
 def attendance():
+    if not current_user.is_approved:
+        flash("Contact your HOD for confirmation.", "info")
+        return redirect(url_for('student.settings'))
     user_roles = [role.name for role in list(current_user.roles)]
     if 'student' not in user_roles:
-        flash("You are not allowed to visit student dashboard", "danger")
-        return redirect(url_for('main.home'))
+        return redirect(url_for('faculty.attendance'))
     if not current_user.files_uploaded:
         return redirect(url_for('student.settings'))
-    return render_template('student/attendance.html')
+    attendances = Attendance.query.filter_by(user_id=current_user.id).all()
+    return render_template('student/attendance.html', attendances=attendances)
 
-@student.route('/settings/')
+@student.route('/settings/', methods=['GET', 'POST'])
 @login_required
 def settings():
-    return render_template('student/settings.html')
-
-@student.route('/apply_leave/')
-@login_required
-def apply_leave():
     user_roles = [role.name for role in list(current_user.roles)]
     if 'student' not in user_roles:
-        flash("You are not allowed to visit student dashboard", "danger")
-        return redirect(url_for('main.home'))
+        return redirect(url_for('faculty.attendance'))
+    if request.method == 'POST':
+        if request.args.get('form') == 'change_password':
+            current_password = request.form.get('current_password')
+            password = request.form.get('password')
+            cpassword = request.form.get('cpassword')
+            if password == cpassword:
+                if bcrypt.check_password_hash(current_user.password, current_password):
+                    current_user.password = bcrypt.generate_password_hash(password)
+                    db.session.commit()
+                    flash("Your password has been changed!", "success")
+                    return redirect(url_for('student.settings'))
+                else:
+                    flash("Current password does not match.", "danger")
+                    return redirect(url_for('student.settings'))
+            else:
+                flash("Password and confirm password must be same.", "danger")
+                return redirect(url_for('student.settings'))
+        if request.args.get('form') == 'add_face':
+            if request.files:
+                front = save_picture(current_user.id, request.files.get('frontface'))
+                if not front:
+                    flash("Allowed files are png, jpg, jpeg.", "danger")
+                    return redirect(url_for('student.settings'))
+                current_user.front_face = front
+                print(front)
+                
+                if front:
+                    current_user.files_uploaded = True
+                    db.session.commit()
+                db.session.commit()
+                flash("Image saved for attendance.", "success")
+                return redirect(url_for('student.settings'))
+    return render_template('student/settings.html')
+
+@student.route('/apply_leave/', methods=['GET', 'POST'])
+@login_required
+def apply_leave():
+    if not current_user.is_approved:
+        flash("Contact your HOD for confirmation.", "info")
+        return redirect(url_for('student.settings'))
+    user_roles = [role.name for role in list(current_user.roles)]
+    if 'student' not in user_roles:
+        return redirect(url_for('faculty.attendance'))
     if not current_user.files_uploaded:
         return redirect(url_for('student.settings'))
+    if current_user.leaves_left == 0:
+        flash("Your allocated leaves are 0.", "danger")
+        return redirect(url_for('student.attendance'))
+    if request.method == 'POST':
+        if current_user.leaves_left != 0:
+            application_type = request.form.get('application_type')
+            apply_date = request.form.get('apply_date')
+            leavefrom = request.form.get('leavefrom')
+            leavetill = request.form.get('leavetill')
+            num_days = request.form.get('num_days')
+            reason = request.form.get('reason')
+            f_yr, f_mon, f_dy = map(int, apply_date.split(('-')))
+            apply_date = date(f_yr, f_mon, f_dy)
+            f_yr, f_mon, f_dy = map(int, leavefrom.split(('-')))
+            leavefrom = date(f_yr, f_mon, f_dy)
+            t_yr, t_mon, t_dy = map(int, leavetill.split(('-')))
+            leavetill = date(t_yr, t_mon, t_dy)
+            appli = Application(application_type=application_type, apply_date=apply_date, leave_from=leavefrom, leave_till=leavetill, total_days=num_days, reason=reason, status='REQUESTED', user_id=current_user.id)
+            db.session.add(appli)
+            db.session.commit()
+            flash("Applied Successfully!", "success")
+            return redirect(url_for('student.application'))
+        else:
+            flash("Allocated leaves exceed.", "danger")
+            return redirect(url_for('student.apply_leave'))
     return render_template('student/apply_leave.html')
 
 @student.route('/application/')
 @login_required
 def application():
+    if not current_user.is_approved:
+        flash("Contact your HOD for confirmation.", "info")
+        return redirect(url_for('student.settings'))
     user_roles = [role.name for role in list(current_user.roles)]
     if 'student' not in user_roles:
-        flash("You are not allowed to visit student dashboard", "danger")
-        return redirect(url_for('main.home'))
+        return redirect(url_for('faculty.attendance'))
     if not current_user.files_uploaded:
         return redirect(url_for('student.settings'))
-    return render_template('student/applications.html')
+    applications = Application.query.filter_by(user_id=current_user.id).all()
+    return render_template('student/applications.html', applications=applications)

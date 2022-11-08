@@ -5,7 +5,7 @@
 <section class="container">
     <br>
     <div class="col-md-10 mx-auto col-lg-5 mb-3 mt-60">
-        <form class="p-4 p-md-5 border rounded-3 bg-light" action="{{ url_for('student.register') }}" method="post"
+        <form class="p-4 p-md-5 border rounded-3 bg-light" action="{{ url_for('faculty.register') }}" method="post"
             id="register_form">
             <div class=" mb-3 mt-10">
                 <h4 class="signin">Register Now</h4>
@@ -38,43 +38,6 @@
 
             <div class="row mb-3">
                 <div class="col">
-                    <label for="enrol">Enrollment Number</label>
-                    <input type="text" class="form-control" placeholder="0863CS191091" name="enrol" id="enrol" required>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col">
-                    <label for="section">Section</label>
-                    <br>
-                    <select class="form-select" aria-label="Default select example" id="section" name="section"
-                        required>
-                        <option value="0" name="section">Select Section</option>
-                        <option value="CS-A" name="section">CS-A</option>
-                        <option value="CS-B" name="section">CS-B</option>
-                        <option value="CS-C" name="section">CS-C</option>
-                        <option value="CS-AIDS" name="section">CS-AIDS</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <label for="semester">Semester</label>
-                    <br>
-                    <select class="form-select" aria-label="Default select example" id="semester" name="semester"
-                        required>
-                        <option value="0" name="semester">Select Semester</option>
-                        <option value="1" name="semester">1</option>
-                        <option value="2" name="semester">2</option>
-                        <option value="3" name="semester">3</option>
-                        <option value="4" name="semester">4</option>
-                        <option value="5" name="semester">5</option>
-                        <option value="6" name="semester">6</option>
-                        <option value="7" name="semester">7</option>
-                        <option value="8" name="semester">8</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" placeholder="Password" name="password" id="password"
                         required>
@@ -93,7 +56,7 @@
             <button class="w-100 btn btn-lg btn-warning" type="submit">Register Now</button>
             <hr class="my-4">
             <div class="text-center">
-                <h6>Already have an account? <a href="{{ url_for('student.login') }}" class="link-danger">Login</a></h6>
+                <h6>Already have an account? <a href="{{ url_for('faculty.login') }}" class="link-danger">Login</a></h6>
             </div>
         </form>
     </div>

@@ -1,0 +1,190 @@
+{% extends 'main/base.html' %}
+{% block title %}Apply For Leave / Work Attendance{% endblock %}
+
+{% block content%}
+<br>
+<br>
+<br>
+<hr>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('student.attendance') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-bar-chart-2" aria-hidden="true">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                            View Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('student.apply_leave') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            Apply For Leave / Work Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('student.application') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            View Leave Applications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('student.settings') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-layers" aria-hidden="true">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                <polyline points="2 17 12 22 22 17"></polyline>
+                                <polyline points="2 12 12 17 22 12"></polyline>
+                            </svg>
+                            Settings
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br>
+        </nav>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Apply for Leave / Work Attendance</h1>
+            </div>
+            <form class="p-4 p-md-5 border rounded-3" action="{{ url_for('student.apply_leave') }}" method="post">
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="application_type">Applying For</label>
+                        <br>
+                        <select class="form-select" aria-label="Default select example" id="application_type"
+                            name="application_type" style="width: 100%;">
+                            <option value="0" name="application_type">Application Type</option>
+                            <option value="LEAVE" name="application_type">LEAVE</option>
+                            <option value="WORK ATTENDANCE" name="application_type">WORK ATTENDANCE</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="apply_date">Apply Date</label>
+                        <input type="date" class="form-control" value="" aria-label="First name" id="apply_date"
+                            name="apply_date" required readonly>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="leavefrom">Leave From</label>
+                        <input type="date" class="form-control" id="leavefrom" name="leavefrom" required>
+                    </div>
+                    <div class="col">
+                        <label for="leavetill">Leave Till</label>
+                        <input type="date" class="form-control" id="leavetill" name="leavetill" required>
+                    </div>
+                    <div class="col">
+                        <label for="num_days">Total Days</label>
+                        <input type="number" class="form-control" id="num_days" name="num_days" readonly required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="reason">Reason</label>
+                        <br>
+                        <textarea name="reason" id="reason" style="width: 100%" required></textarea>
+                    </div>
+                </div>
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" name="checkbox" required> Above information is correct
+                    </label>
+                </div>
+                <button class="w-100 btn btn-lg btn-warning" type="submit">Apply</button>
+                <hr class="my-4">
+                <div class="text-center">
+                    <h6>Already applied? <a href="{{ url_for('student.application') }}">Applications</a></h6>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+    integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    $(document).ready(function () {
+        current_date = new Date();
+        const current_day = ("0" + current_date.getDate()).slice(-2);
+        const current_month = current_date.getMonth()+1;
+        const current_year = current_date.getFullYear();
+        const today = current_year + "-" + current_month + "-" + current_day
+        $("#apply_date").val(today);
+    });
+</script>
+<script>
+    function calcBusinessDays(dDate1, dDate2) { // input given as Date objects
+        var iWeeks, iDateDiff, iAdjust = 0;
+        if (dDate2 < dDate1) return -1; // error code if dates transposed
+        var iWeekday1 = dDate1.getDay(); // day of week
+        var iWeekday2 = dDate2.getDay();
+        iWeekday1 = (iWeekday1 == 0) ? 7 : iWeekday1; // change Sunday from 0 to 7
+        iWeekday2 = (iWeekday2 == 0) ? 7 : iWeekday2;
+        if ((iWeekday1 > 5) && (iWeekday2 > 5)) iAdjust = 1; // adjustment if both days on weekend
+        iWeekday1 = (iWeekday1 > 5) ? 5 : iWeekday1; // only count weekdays
+        iWeekday2 = (iWeekday2 > 5) ? 5 : iWeekday2;
+
+        // calculate differnece in weeks (1000mS * 60sec * 60min * 24hrs * 7 days = 604800000)
+        iWeeks = Math.floor((dDate2.getTime() - dDate1.getTime()) / 604800000)
+
+        if (iWeekday1 < iWeekday2) { //Equal to makes it reduce 5 days
+            iDateDiff = (iWeeks * 5) + (iWeekday2 - iWeekday1);
+        } else {
+            iDateDiff = ((iWeeks + 1) * 5) - (iWeekday1 - iWeekday2)
+        }
+
+        iDateDiff -= iAdjust // take into account both days on weekend
+        if (dDate2.toString() === dDate1.toString()) return 1;
+
+        return (iDateDiff + 1); // add 1 because dates are inclusive
+    }
+    $("#leavetill").change(function () {
+        const leavefrom = document.getElementById('leavefrom').value;
+        const leavetill = document.getElementById('leavetill').value;
+        let num_days = document.getElementById('num_days');
+        const from = new Date(leavefrom);
+        const to = new Date(leavetill);
+        num_days.value = calcBusinessDays(from, to);
+        let application_type = document.getElementById('application_type').value;
+        if (application_type === '0') {
+            alert('Select proper application type.');
+            leavetill.innerHTML = '';
+        }
+    });
+    $("#application_type").change(function () {
+        let application_type = document.getElementById('application_type').value;
+        if (application_type === '0') {
+            alert(0);
+        }
+    });
+</script>
+
+{% endblock%}
+{% endblock%}
