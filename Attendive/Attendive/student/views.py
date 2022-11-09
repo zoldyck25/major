@@ -209,7 +209,7 @@ def apply_leave():
             leavefrom = date(f_yr, f_mon, f_dy)
             t_yr, t_mon, t_dy = map(int, leavetill.split(('-')))
             leavetill = date(t_yr, t_mon, t_dy)
-            appli = Application(application_type=application_type, apply_date=apply_date, leave_from=leavefrom, leave_till=leavetill, total_days=num_days, reason=reason, status='REQUESTED', user_id=current_user.id)
+            appli = Application(application_type=application_type, apply_date=apply_date, leave_from=leavefrom, leave_till=leavetill, total_days_left=num_days, total_days=num_days, reason=reason, status='REQUESTED', user_id=current_user.id)
             db.session.add(appli)
             db.session.commit()
             flash("Applied Successfully!", "success")

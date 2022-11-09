@@ -73,6 +73,7 @@ class Attendance(db.Model):
     subject = db.Column(db.String(1000), nullable=False)
     status = db.Column(db.String(10), nullable=False)
     topic = db.Column(db.Text(), nullable=False)
+    marked_attendance = db.Column(db.DateTime(), default=datetime.now(tz))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
@@ -85,6 +86,7 @@ class Application(db.Model):
     leave_from = db.Column(db.Date(), nullable=False)
     leave_till = db.Column(db.Date(), nullable=False)
     total_days = db.Column(db.Integer, nullable=False)
+    total_days_left = db.Column(db.Integer, nullable=False)
     reason = db.Column(db.Text(), nullable=False)
     status = db.Column(db.String(100), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
