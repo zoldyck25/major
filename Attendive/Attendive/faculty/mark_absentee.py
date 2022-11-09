@@ -15,7 +15,7 @@ attendances = Attendance.query.filter_by(status='NA').all()
 
 for attendance in attendances:
     marked_attendance_date = attendance.marked_attendance.replace(tzinfo=pytz.utc)
-    if marked_attendance_date+timedelta(minutes=1) <= datetime.now(tz).replace(tzinfo=pytz.utc):
+    if marked_attendance_date+timedelta(minutes=3) <= datetime.now(tz).replace(tzinfo=pytz.utc):
         user_id = attendance.user_id
         user = User.query.filter_by(id=user_id).first()
         applications_list = [appl for appl in list(user.applications) if appl.application_type == 'LEAVE']
