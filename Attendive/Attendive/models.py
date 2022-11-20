@@ -95,8 +95,3 @@ class Subject(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(1000), nullable=False)
     semester = db.Column(db.Integer, nullable=False)
-
-class Faculty_Subject(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'))
-    faculty_id = db.Column(db.Integer, db.ForeignKey('user.id'))

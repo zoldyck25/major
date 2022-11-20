@@ -6,7 +6,7 @@ from time import sleep
 
 class Video(object):
     def gen_frames(users, root_path, subject, section):
-        video_capture = cv2.VideoCapture(0)
+        video_capture = cv2.VideoCapture(1)
         # Create arrays of known face encodings and their names
         known_face_encodings = list()
         known_face_names = list()
