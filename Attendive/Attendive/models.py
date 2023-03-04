@@ -18,6 +18,11 @@ user_role = db.Table('user_role',
                     db.Column('role_id', db.Integer, db.ForeignKey('role.id'))
 )
 
+user_subject = db.Table('user_subject',
+                    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+                    db.Column('subject_id', db.Integer, db.ForeignKey('subject.id'))
+)
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     fname = db.Column(db.String(128))
@@ -25,19 +30,18 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(140), unique=True, nullable=False)
     mobile_number = db.Column(db.String(11), unique=True, nullable=False)
     section = db.Column(db.String(255))
+    semester = db.Column(db.Integer)
     enrollment = db.Column(db.String(128))
     password = db.Column(db.String(1000), nullable=False)
     date = db.Column(db.DateTime, default=datetime.now(tz))
     leaves_left = db.Column(db.Integer, default=10)
     files_uploaded = db.Column(db.Boolean, default=False)
+    is_approved = db.Column(db.Boolean, default=False)
     roles = db.relationship('Role', backref='user', secondary=user_role, lazy='dynamic')
+    subjects = db.relationship('Subject', backref='user', secondary=user_subject, lazy='dynamic')
 
     # Student
     front_face = db.Column(db.String(200)) # Front
-    left_face = db.Column(db.String(200)) # Left
-    right_face = db.Column(db.String(200)) # Right
-    left_front_face = db.Column(db.String(200)) # Left Front
-    right_front_face = db.Column(db.String(200)) # Right Front
 
     # Student - Relations
     applications = db.relationship('Application', backref='user', lazy='dynamic')
@@ -56,9 +60,6 @@ class User(db.Model, UserMixin):
             return None
         return User.query.get(user_id)
 
-    def __repr__(self):
-        return f"User('{self.name}', '{self.email}', '{self.mobile_number}')"
-
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False, unique=True)
@@ -67,8 +68,12 @@ class Attendance(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date(), nullable=False)
     section = db.Column(db.String(100), nullable=False)
+    period_number = db.Column(db.Integer, nullable=False)
+    unit_number = db.Column(db.Integer, nullable=False)
     subject = db.Column(db.String(1000), nullable=False)
     status = db.Column(db.String(10), nullable=False)
+    topic = db.Column(db.Text(), nullable=False)
+    marked_attendance = db.Column(db.DateTime(), default=datetime.now(tz))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
@@ -81,7 +86,12 @@ class Application(db.Model):
     leave_from = db.Column(db.Date(), nullable=False)
     leave_till = db.Column(db.Date(), nullable=False)
     total_days = db.Column(db.Integer, nullable=False)
+    total_days_left = db.Column(db.Integer, nullable=False)
     reason = db.Column(db.Text(), nullable=False)
-    proof = db.Column(db.String(1000), nullable=False)
     status = db.Column(db.String(100), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Subject(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(1000), nullable=False)
+    semester = db.Column(db.Integer, nullable=False)

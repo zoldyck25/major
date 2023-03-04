@@ -1,0 +1,138 @@
+{% extends 'main/base.html' %}
+{% block title %}
+Approve / Reject Leaves
+{% endblock title %}
+
+{% block content %}
+<br><br><br><br>
+<div class="container-fluid">
+    <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.approve_leaves') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-bar-chart-2" aria-hidden="true">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                            Leaves Applications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.allocate_faculty') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            Allocate Faculty
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.faculty_list') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            Faculties
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.students_list') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            Students
+                        </a>
+                    </li>
+                    {% set roles = [] %}
+                    {% for role in current_user.roles %}
+                    {{ roles.append(role.name)|default("", True) }}
+                    {% endfor %}
+                    {% if 'faculty' in roles %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('faculty.attendance') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            Faculty Dashboard
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br>
+        </nav>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Allocate Faculty</h1>
+            </div>
+            <form class="p-4 p-md-5 border rounded-3" method="post" action="{{ url_for('admin.allocate_faculty') }}">
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="faculty_id">Faculty Name</label>
+                        <br>
+                        <select class="form-select" aria-label="Default select example" id="faculty_id"
+                            name="faculty_id" style="width: 100%;">
+                            <option value="0" name="faculty_id">Faculty Name</option>
+                            {% for faculty in faculties %}
+                            <option value="{{ faculty.id }}" name="faculty_id">Prof. {{ faculty.fname }} {{
+                                faculty.lname }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="section">Section</label>
+                        <br>
+                        <select class="form-select" aria-label="Default select example" id="section" name="section"
+                            style="width: 100%;" required>
+                            <option value="0" name="section">Section</option>
+                            <option value="CS-A" name="section">CS-A</option>
+                            <option value="CS-B" name="section">CS-B</option>
+                            <option value="CS-C" name="section">CS-C</option>
+                            <option value="CS-AIDS" name="section">CS-AIDS</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="subject">Subject</label>
+                        <select class="form-select" aria-label="Default select example" id="subject" name="subject"
+                            style="width: 100%;" required>
+                            <option value="0" name="subject">Subject</option>
+                            {% for sub in subjects %}
+                            <option value="{{ sub.name }}" name="subject">Semester - {{ sub.semester }} & Subject - {{
+                                sub.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <button class="w-100 btn btn-lg btn-warning" type="submit">Allocate</button>
+                <hr class="my-4">
+                <div class="text-center">
+                    <h6>Faculty List <a href="{{ url_for('admin.faculty_list') }}">Faculties</a></h6>
+                </div>
+            </form>
+
+        </main>
+    </div>
+</div>
+
+{% endblock content %}

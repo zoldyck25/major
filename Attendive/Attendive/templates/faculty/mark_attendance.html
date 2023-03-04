@@ -1,0 +1,185 @@
+{% extends 'main/base.html' %}
+{% block title %}
+Mark Attendance
+{% endblock title %}
+
+{% block content %}
+<br><br><br><br>
+<div class="container-fluid">
+    <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('faculty.attendance') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-bar-chart-2" aria-hidden="true">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                            Mark Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('faculty.settings') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-layers" aria-hidden="true">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                <polyline points="2 17 12 22 22 17"></polyline>
+                                <polyline points="2 12 12 17 22 12"></polyline>
+                            </svg>
+                            Settings
+                        </a>
+                    </li>
+                    {% set roles = [] %}
+                    {% for role in current_user.roles %}
+                    {{ roles.append(role.name)|default("", True) }}
+                    {% endfor %}
+                    {% if 'hod' in roles %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.approve_leaves') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-file" aria-hidden="true">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            HOD Dashboard
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br>
+        </nav>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2"> Mark Attendance</h1>
+            </div>
+            <form class="p-4 p-md-5 border rounded-3" method="post" action="{{ url_for('faculty.attendance') }}"
+                enctype="multipart/form-data">
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="attendance_date">Attendance Date</label>
+                        <input type="date" class="form-control" value="" aria-label="First name" id="attendance_date"
+                            name="attendance_date" required readonly>
+                    </div>
+                    <div class="col">
+                        <label for="period_number">Period Number</label>
+                        <br>
+                        <select class="form-select" aria-label="Default select example" id="period_number"
+                            name="period_number" style="width: 100%;">
+                            <option value="1" name="period_number">1</option>
+                            <option value="2" name="period_number">2</option>
+                            <option value="3" name="period_number">3</option>
+                            <option value="4" name="period_number">4</option>
+                            <option value="5" name="period_number">5</option>
+                            <option value="6" name="period_number">6</option>
+                            <option value="7" name="period_number">7</option>
+                            <option value="8" name="period_number">8</option>
+                            <option value="9" name="period_number">9</option>
+                            <option value="10" name="period_number">10</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="semester">Semester</label>
+                        <br>
+                        <select class="form-select" aria-label="Default select example" id="semester" name="semester"
+                            style="width: 100%;">
+                            <option value="0" name="semester">Select Semester</option>
+                            {% for sub in subjects %}
+                            <option value="{{ sub.semester }}" name="semester">{{ sub.semester }}</option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="subjects">Subject</label>
+                        <br>
+                        <select class="form-select" aria-label="Default select example" id="subjects" name="subjects"
+                            style="width: 100%;">
+                            <option value="0" name="subjects">Select Subject</option>
+                            {% for sub in subjects %}
+                            <option value="{{ sub.name }}" name="subjects">{{ sub.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="section">Section</label>
+                        <br>
+                        <select class="form-select" aria-label="Default select example" id="section" name="section"
+                            style="width: 100%;">
+                            <option value="0" name="section">Section</option>
+                            <option value="CS-A" name="section">CS-A</option>
+                            <option value="CS-B" name="section">CS-B</option>
+                            <option value="CS-C" name="section">CS-C</option>
+                            <option value="CS-AIDS" name="section">CS-AIDS</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="unit_number">Unit No.</label>
+                        <br>
+                        <select class="form-select" aria-label="Default select example" id="unit_number"
+                            name="unit_number" style="width: 100%;">
+                            <option value="0" name="unit_number">Unit Covered</option>
+                            <option value="1" name="unit_number">1</option>
+                            <option value="2" name="unit_number">2</option>
+                            <option value="3" name="unit_number">3</option>
+                            <option value="4" name="unit_number">4</option>
+                            <option value="5" name="unit_number">5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="topic">Topic Covered</label>
+                        <br>
+                        <textarea name="topic" id="topic" style="width: 100%" required></textarea>
+                    </div>
+                    <div class="col">
+                        <label for="total_attendance">Total Attendance</label>
+                        <br>
+                        <div>
+                            <select class="form-select" aria-label="Default select example" id="total_attendance"
+                                name="total_attendance" style="width: 100%;">
+                                <option value="1" name="total_attendance">1</option>
+                                <option value="2" name="total_attendance">2</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button class="w-100 btn btn-lg btn-warning" type="submit">Apply</button>
+            </form>
+        </main>
+    </div>
+</div>
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+    integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    $(document).ready(function () {
+        current_date = new Date();
+        const current_day = ("0" + current_date.getDate()).slice(-2);
+        const current_month = current_date.getMonth() + 1;
+        const current_year = current_date.getFullYear();
+        const today = current_year + "-" + current_month + "-" + current_day
+        $("#attendance_date").val(today);
+    });
+</script>
+{% endblock script %}
+
+{% endblock content %}

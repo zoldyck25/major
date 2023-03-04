@@ -10,7 +10,7 @@ db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 mail = Mail()
-login_manager.login_view = 'main.login'
+login_manager.login_view = 'student.login'
 login_manager.login_message_category = 'info'
 
 
